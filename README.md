@@ -12,6 +12,11 @@ Simply put it in the middleware chain. Keyword-params middleware is required.
 
 Controlling logging to write a http_access.log file or something else is left to tools.logging which usually delegates this to log4j. 
 
+## Latest from Clojars
+
+[![Clojars Project](http://clojars.org/org.clojars.lokori/lolog/latest-version.svg)](http://clojars.org/org.clojars.lokori/lolog)
+
+
 ## Why?
 
 There are others, yes. This is simple.
