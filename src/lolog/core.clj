@@ -41,15 +41,18 @@
 (defn end-str [id req total]
   (str "Request " id " end. Duration: " total " ms. uri: " (:uri req)))
 
-(defn wrap-log-request [ring-handler & custom-mapping]
+(defn wrap-log-request 
   "Logging middleware. Basic information + duration and unique id for performance analysis"
-  (fn [req]
-    (let [id (swap! requestid inc)
-          start (System/currentTimeMillis)]
-      (log/info (start-str id req custom-mapping))
-      (let [response (ring-handler req)
-            finish (System/currentTimeMillis)
-            total  (- finish start)]
-        (log/info (end-str id req total))
-        response
-        ))))
+  ([ring-handler custom-mapping]
+    (fn [req]
+      (let [id (swap! requestid inc)
+            start (System/currentTimeMillis)]
+        (log/info (start-str id req custom-mapping))
+        (let [response (ring-handler req)
+              finish (System/currentTimeMillis)
+              total  (- finish start)]
+          (log/info (end-str id req total))
+          response
+          ))))
+  ([ring-handler]
+    (wrap-log-request ring-handler nil)))

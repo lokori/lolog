@@ -23,3 +23,10 @@
         requ  {:uri "lai" :headers {"user-agent" "l" "referer" "r"}   
                  :request-method "l"}]
     (= requ (ff requ))))
+
+(deftest wrapper-fn-custom
+  (let [customized [["oid" #(get-in % [:headers "oid"])]]
+        ff (wrap-log-request #(into {} %) customized)
+        requ  {:uri "lai" :headers {"user-agent" "l" "referer" "r"}   
+                 :request-method "l"}]
+    (= requ (ff requ))))
